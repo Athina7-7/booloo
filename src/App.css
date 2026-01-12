@@ -1,0 +1,466 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+.app {
+  height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Estrellas animadas - capa adicional */
+.stars, .stars2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stars {
+  background: 
+    /* Estrellas brillantes */
+    radial-gradient(2px 2px at 100px 50px, #fff, transparent),
+    radial-gradient(2.5px 2.5px at 400px 150px, #ffe4c4, transparent),
+    radial-gradient(2px 2px at 650px 300px, #b8d4ff, transparent),
+    radial-gradient(3px 3px at 200px 400px, #fff, transparent),
+    radial-gradient(2px 2px at 500px 500px, #cce4ff, transparent),
+    radial-gradient(2.5px 2.5px at 750px 100px, #fff, transparent),
+    radial-gradient(2px 2px at 300px 200px, #c4e4ff, transparent),
+    radial-gradient(3px 3px at 550px 350px, #fff, transparent),
+    radial-gradient(2px 2px at 50px 300px, #ffe4d4, transparent),
+    radial-gradient(2.5px 2.5px at 700px 450px, #d4e4ff, transparent);
+  background-repeat: repeat;
+  background-size: 800px 600px;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.stars2 {
+  background: 
+    /* Estrellas con brillo de colores */
+    radial-gradient(1.5px 1.5px at 80px 120px, rgba(255,220,200,0.9), transparent),
+    radial-gradient(2px 2px at 220px 280px, rgba(200,220,255,1), transparent),
+    radial-gradient(1.5px 1.5px at 380px 80px, rgba(255,255,200,0.8), transparent),
+    radial-gradient(2px 2px at 520px 220px, rgba(200,255,255,1), transparent),
+    radial-gradient(1.5px 1.5px at 680px 380px, rgba(200,230,255,0.9), transparent),
+    radial-gradient(2px 2px at 150px 450px, rgba(200,255,230,1), transparent),
+    radial-gradient(1.5px 1.5px at 450px 50px, rgba(255,220,200,0.8), transparent),
+    radial-gradient(2px 2px at 600px 180px, rgba(200,220,255,1), transparent);
+  background-repeat: repeat;
+  background-size: 750px 550px;
+  animation: twinkle 5s ease-in-out infinite reverse;
+}
+
+/* Estrellas fugaces */
+.stars::before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fff 50%, transparent);
+  top: 20%;
+  left: -100px;
+  animation: shootingStar 8s linear infinite;
+  opacity: 0;
+}
+
+.stars2::before {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(100, 180, 255, 1) 50%, transparent);
+  top: 60%;
+  left: -80px;
+  animation: shootingStar 12s linear infinite 4s;
+  opacity: 0;
+}
+
+@keyframes shootingStar {
+  0% { left: -100px; opacity: 0; }
+  5% { opacity: 1; }
+  30% { left: 110%; opacity: 1; }
+  31% { opacity: 0; }
+  100% { opacity: 0; left: 110%; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Título */
+.title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 400;
+  margin: 0;
+  color: #fff;
+  text-shadow: 
+    0 0 10px rgba(100, 150, 200, 0.5),
+    0 0 30px rgba(100, 150, 200, 0.3),
+    0 0 60px rgba(100, 150, 200, 0.2);
+  letter-spacing: 8px;
+  z-index: 1;
+}
+
+.magic {
+  background: linear-gradient(135deg, #60a5fa, #38bdf8, #22d3d8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 5px 0 15px 0;
+  letter-spacing: 1px;
+  z-index: 1;
+}
+
+/* Contenedor de la bola */
+.ball-container {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 15px;
+}
+
+.ball-container.shaking {
+  animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  25% { transform: translateX(-10px) rotate(-5deg); }
+  75% { transform: translateX(10px) rotate(5deg); }
+}
+
+/* La bola 8 */
+.ball {
+  width: clamp(240px, 45vh, 320px);
+  height: clamp(240px, 45vh, 320px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #4a4a4a, #1a1a1a 40%, #000 70%);
+  position: relative;
+  box-shadow: 
+    inset -20px -20px 40px rgba(0, 0, 0, 0.8),
+    inset 10px 10px 30px rgba(100, 100, 100, 0.3),
+    0 20px 60px rgba(0, 0, 0, 0.8),
+    0 0 80px rgba(50, 100, 150, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ball:hover {
+  transform: scale(1.02);
+  box-shadow: 
+    inset -20px -20px 40px rgba(0, 0, 0, 0.8),
+    inset 10px 10px 30px rgba(100, 100, 100, 0.3),
+    0 25px 70px rgba(0, 0, 0, 0.9),
+    0 0 100px rgba(50, 100, 150, 0.3);
+}
+
+/* Brillo de la bola */
+.ball-shine {
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: 30%;
+  height: 20%;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.4), transparent 70%);
+  border-radius: 50%;
+  transform: rotate(-30deg);
+}
+
+/* Círculo blanco del 8 */
+.eight-circle {
+  width: 45%;
+  height: 45%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #ffffff, #e8e8e8 60%, #d0d0d0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    inset 0 2px 10px rgba(0,0,0,0.2),
+    0 0 20px rgba(255,255,255,0.3);
+  overflow: hidden;
+}
+
+/* Número 8 */
+.eight {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 14vw, 5.5rem);
+  font-weight: 400;
+  color: #1a1a1a;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Área de respuesta */
+.triangle {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #0a1628 0%, #0c1929 50%, #061018 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  animation: fadeIn 0.5s ease-out;
+  box-sizing: border-box;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.response-text {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: clamp(0.55rem, 1.8vw, 0.75rem);
+  color: #7dd3fc;
+  text-align: center;
+  line-height: 1.3;
+  max-width: 85%;
+  text-shadow: 0 0 10px rgba(125, 211, 252, 0.5);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Pensando */
+.thinking {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thinking span {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: #1a1a1a;
+  animation: thinkingDots 1s ease-in-out infinite;
+}
+
+@keyframes thinkingDots {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* Puntos de carga */
+.loading-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.loading-dots span {
+  width: 10px;
+  height: 10px;
+  background: #38bdf8;
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+/* Sombra de la bola */
+.ball-shadow {
+  width: 80%;
+  height: 20px;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.5), transparent 70%);
+  margin-top: 20px;
+  filter: blur(5px);
+}
+
+/* Input y botón */
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+  z-index: 1;
+}
+
+input {
+  width: 100%;
+  padding: 16px 24px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  border: 2px solid rgba(56, 189, 248, 0.3);
+  border-radius: 50px;
+  background: rgba(10, 20, 30, 0.8);
+  color: #fff;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+}
+
+input:focus {
+  border-color: rgba(56, 189, 248, 0.8);
+  box-shadow: 
+    0 0 20px rgba(56, 189, 248, 0.3),
+    inset 0 0 20px rgba(56, 189, 248, 0.1);
+}
+
+input:disabled {
+  opacity: 0.5;
+}
+
+button {
+  padding: 16px 32px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #0369a1, #0ea5e9);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 10px 30px rgba(14, 165, 233, 0.4),
+    0 0 40px rgba(14, 165, 233, 0.2);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hint {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 0;
+  letter-spacing: 0.5px;
+  z-index: 1;
+}
+
+/* Estado escuchando */
+.ball-container.listening .ball {
+  cursor: default;
+  box-shadow: 
+    inset -20px -20px 40px rgba(0, 0, 0, 0.8),
+    inset 10px 10px 30px rgba(100, 100, 100, 0.3),
+    0 20px 60px rgba(0, 0, 0, 0.8),
+    0 0 60px rgba(56, 189, 248, 0.5),
+    0 0 100px rgba(56, 189, 248, 0.3);
+}
+
+.ball {
+  cursor: pointer;
+}
+
+/* Indicador de micrófono */
+.mic-indicator {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mic-icon {
+  width: 50px;
+  height: 50px;
+  color: #1a1a1a;
+  animation: micBounce 1s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes micBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Anillo de pulso */
+.pulse-ring {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 3px solid rgba(56, 189, 248, 0.6);
+  border-radius: 50%;
+  animation: pulse 1.5s ease-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Transcripción */
+.transcript {
+  font-family: 'DM Sans', sans-serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 20px;
+  text-align: center;
+  max-width: 400px;
+  z-index: 1;
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Hint */
+.hint {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 0;
+  letter-spacing: 0.5px;
+  z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .subtitle {
+    text-align: center;
+    padding: 0 20px;
+  }
+  
+  .transcript {
+    padding: 0 20px;
+  }
+}
